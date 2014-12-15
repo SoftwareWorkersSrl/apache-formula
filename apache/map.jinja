@@ -1,0 +1,9 @@
+{% set apache = salt['grains.filter_by']({
+    'Debian': {
+        'dirs': {
+          'config': '/etc/apache2',
+          'sites_enabled': '/etc/apache2/sites-enabled',
+          'sites_available': '/etc/apache2/sites-available',
+        },
+    },
+}, merge=salt['pillar.get']('apache:lookup'), default='Debian') %}

@@ -1,0 +1,13 @@
+## File managed by Salt.
+
+# Simple redirect vhost
+<VirtualHost {{ listen_ip|default('*') }}:{{ listen_port|default('80') }}>
+    ServerName {{ domain }}
+    ServerAlias www.{{ domain }} {{ aliases|default([])|join(" ") }}
+
+    <IfModule mpm_itk_module>
+      AssignUserID {{ owner|default('www-data') }} {{ owner|default('www-data') }}
+    </IfModule>
+
+    Redirect {{ code|default('301') }} / {{ redirect_to }}
+</VirtualHost>
