@@ -17,23 +17,23 @@
       Require all granted
     </Directory>
 
-    {% if logdir is defined %}
+    {%- if logdir is defined %}
     CustomLog {{ logdir }}/{{ domain }}_access.log combined
     ErrorLog {{ logdir }}/{{ domain }}_error.log
-    {% endif %}
+    {% endif -%}
 
     <IfModule php5_module>
-      {% if php|default(true) %}
+      {% if php|default(true) -%}
         php_admin_value sendmail_path '/usr/sbin/sendmail -t -i -fwww-data@{{ domain }}'
       {% else %}
         php_admin_flag engine off
-      {% endif %}
+      {% endif -%}
       {{ extra_php_config|default([])|join("\n")|indent(3) }}
     </IfModule>
 
     {{ extra_config|default([])|join("\n")|indent(2) }}
 
-    {% if ssl is defined and ssl is mapping and ssl.forward is defined and ssl.forward == True %}
+    {%- if ssl is defined and ssl is mapping and ssl.forward is defined and ssl.forward == True %}
     # Force redirect Non-SSL requests to SSL
     RewriteEngine On
     RewriteCond %{HTTPS} off
@@ -42,7 +42,7 @@
     {% endif %}
 </VirtualHost>
 
-{% if ssl is defined and ssl is mapping %}
+{%- if ssl is defined and ssl is mapping %}
 # SSL Vhost
 <IfModule mod_ssl.c>
   <VirtualHost {{ listen_ip_ssl|default('*') }}:{{ listen_port_ssl|default('443') }}>
@@ -71,21 +71,21 @@
       Require all granted
     </Directory>
 
-    {% if logdir is defined %}
+    {%- if logdir is defined %}
     CustomLog {{ logdir }}/{{ domain }}_access.log combined
     ErrorLog {{ logdir }}/{{ domain }}_error.log
-    {% endif %}
+    {% endif -%}
 
     <IfModule php5_module>
-      {% if php|default(true) %}
+      {% if php|default(true) -%}
         php_admin_value sendmail_path '/usr/sbin/sendmail -t -i -fwww-data@{{ domain }}'
       {% else %}
         php_admin_flag engine off
-      {% endif %}
+      {% endif -%}
       {{ extra_php_config|default([])|join("\n")|indent(3) }}
     </IfModule>
 
     {{ extra_config|default([])|join("\n")|indent(2) }}
   </VirtualHost>
 </IfModule>
-{% endif %}
+{% endif -%}
