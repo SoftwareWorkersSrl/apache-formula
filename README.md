@@ -1,6 +1,9 @@
 # apache-formula
 
+[![Travis branch](https://img.shields.io/travis/Enrise/apache-formula/master.svg?style=flat-square)](https://travis-ci.org/Enrise/apache-formula)
+
 This formula will install the latest stable version of Apache2.
+
 
 ## Compatibility
 
