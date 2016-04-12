@@ -1,0 +1,6 @@
+apache:
+  modules_enabled:
+    - ssl
+    - rewrite
+  modules_disabled:
+    - proxy
