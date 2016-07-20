@@ -2,4 +2,5 @@
 include:
   - .conf
   - .modules
+  - .vhost
   - .service
