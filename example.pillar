@@ -4,3 +4,28 @@ apache:
     - rewrite
   modules_disabled:
     - proxy
+  vhost:
+    example.com:
+      enabled: true
+      conf:
+        - 'virtualhost *:80':
+          - ServerAlias: www.example.com
+          - ServerName: example.it
+          - ServerAdmin: webmaster@localhost
+          - DocumentRoot: /var/www/wow
+          - include: /etc/apache2/conf-availabe/test
+          - Directory /var/www/wow:
+            - Options: -FollowSymLinks
+            - AllowOverride: None
+            - IfVersion >= 2.3:
+              - Require all denied
+            - IfVersion < 2.3:
+              - Order allow,deny
+              - Deny from all
+      conftext: |
+          <VirtualHost *:80>
+              DocumentRoot "/www/example1"
+              ServerName www.example.com
+          
+              # Other directives here
+          </VirtualHost>
