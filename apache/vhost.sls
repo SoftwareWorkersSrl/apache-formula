@@ -1,6 +1,8 @@
 # Manage virtual host
-# Enable vhost:
-{% for vhost, settings in salt['pillar.get']('apache:vhost', {}) %}
+{% if pillar['apache:vhost'] is not defined %}
+# No vhost defined throught pillar (see pillar.example under apache:vhost)
+{% else %}
+{% for vhost, settings in salt['pillar.get']('apache:vhost', {}).iteritems() %}
 {%     if settings.enabled == true %}
 enable_apache_vhost_{{ vhost }}:
   cmd.run:
@@ -36,3 +38,4 @@ apache_vhost_{{ vhost }}:
     - watch_in:
       - service: apache
 {% endfor %}
+{% endif %}
