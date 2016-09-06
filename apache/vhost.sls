@@ -7,7 +7,7 @@ enable_apache_vhost_{{ vhost }}:
     - name: /usr/sbin/a2ensite {{ vhost }}
     - unless: test -L /etc/apache2/site-enabled/{{vhost}}
     - require:
-      - sls: site_config_{{ vhost }}
+      - sls: apache_vhost_{{ vhost }}
     - watch_in:
       - service: apache
 {%     elif settings.enabled == false %}
@@ -21,7 +21,7 @@ disable_apache_vhost_{{ vhost }}:
 
 apache_vhost_{{ vhost }}:
   file.managed:
-    - name: /etc/apache2/site-available/{{ vhost }}.conf
+    - name: /etc/apache2/site-available/{{ vhost }}
 {%     if settings.conftext is defined %}
     - contents_pillar: apache:vhost:{{ vhost }}:conftext
 {%     else %}

@@ -18,6 +18,10 @@ Pull requests for other OSes and bug fixes are more than welcome.
 Include "apache" in your project for the "full stack". Optionally you can select which states you require.
 For usage with the Zend Server formula you should use "apache.light" instead since that package already has its own Apache installation.
 
+## Vhost
+
+There are two way for configuring vhost, see pillar example for details.
+
 ## Todo
 
 - Add configuration support (e.g. for modules)
